@@ -1,6 +1,19 @@
+
+// Create and randomise list
+// map list to grid (hidden)
+// when user touch one tile, take note of which one it is and reveal it (color and animation 1)
+// When the user touches another one, take note of which one it is, 
+//  - if it is a match, reveal with color 2, play animation 2 and score. If it is a win, end game.
+//  - if it is not a match, reveal wit color 3, play animation 3 and hide cards again (animation 4)
+
+
 /*
  * Create a list that holds all of your cards
  */
+
+ let icon_list_first_half = ["fa-diamond", "fa-paper-plane", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bycicle", "fa-bomb"];
+ let icon_list_second_half = icon_list_first_half;
+ let icon_list = icon_list_first_half.concat(icon_list_second_half);
 
 
 /*
