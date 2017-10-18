@@ -1,4 +1,5 @@
 
+jQuery(document).ready(function(){
 // Create and randomise list
 // map list to grid (hidden)
 // when user touch one tile, take note of which one it is and reveal it (color and animation 1)
@@ -11,9 +12,8 @@
  * Create a list that holds all of your cards
  */
 
- let icon_list_first_half = ["fa-diamond", "fa-paper-plane", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bycicle", "fa-bomb"];
- let icon_list_second_half = icon_list_first_half;
- let icon_list = icon_list_first_half.concat(icon_list_second_half);
+ let icons_list_first_half = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+ let unshuffled_icons_list = icons_list_first_half.concat(icons_list_first_half);
 
 
 /*
@@ -38,6 +38,23 @@ function shuffle(array) {
     return array;
 }
 
+let icons_list = shuffle(unshuffled_icons_list);
+
+function populateGrid (list_of_icons) {
+
+    let class_index = 0;
+    $('.deck i').each(function(){
+        let added_class = icons_list[class_index];
+        $(this).addClass(added_class);
+        class_index++;
+    });
+}
+
+populateGrid(icons_list);
+
+// $('.restart').on('click', '.fa-repeat', function(){
+//     populateGrid(icons_list);
+// });
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -49,3 +66,7 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+
+
+});
