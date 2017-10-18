@@ -44,7 +44,8 @@ function populateGrid (list_of_icons) {
 
     let class_index = 0;
     $('.deck i').each(function(){
-        let added_class = icons_list[class_index];
+        // let added_class = icons_list[class_index];
+        let added_class = list_of_icons[class_index];
         $(this).addClass(added_class);
         class_index++;
     });
