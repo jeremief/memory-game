@@ -52,9 +52,11 @@ function populateGrid (list_of_icons) {
 
 // function hideCard() {
 function hideCard(card) {
-    if ($(card).hasClass('open')) {
         $(card).removeClass('open show');
-    }
+}
+
+function showCard(card) {
+        $(card).addClass('open show')
 }
 
 populateGrid(icons_list);
@@ -63,8 +65,13 @@ populateGrid(icons_list);
 //     populateGrid(icons_list);
 // });
 
+
 $('.deck').on('click', '.card', function(){
-    hideCard(this);
+        if ($(this).hasClass('show')) {
+            hideCard(this);
+        } else {
+            showCard(this);
+        }
 });
 
 /*
