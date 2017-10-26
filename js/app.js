@@ -44,11 +44,17 @@ function populateGrid (list_of_icons) {
 
     let class_index = 0;
     $('.deck i').each(function(){
-        // let added_class = icons_list[class_index];
         let added_class = list_of_icons[class_index];
         $(this).addClass(added_class);
         class_index++;
     });
+}
+
+// function hideCard() {
+function hideCard(card) {
+    if ($(card).hasClass('open')) {
+        $(card).removeClass('open show');
+    }
 }
 
 populateGrid(icons_list);
@@ -56,6 +62,10 @@ populateGrid(icons_list);
 // $('.restart').on('click', '.fa-repeat', function(){
 //     populateGrid(icons_list);
 // });
+
+$('.deck').on('click', '.card', function(){
+    hideCard(this);
+});
 
 /*
  * set up the event listener for a card. If a card is clicked:
