@@ -14,6 +14,7 @@ jQuery(document).ready(function(){
 
  let icons_list_first_half = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
  let unshuffled_icons_list = icons_list_first_half.concat(icons_list_first_half);
+ let moveCounter = 0;
 
 
 /*
@@ -67,6 +68,9 @@ populateGrid(icons_list);
 
 
 $('.deck').on('click', '.card', function(){
+        moveCounter++;
+        // $('.moves').val(moveCounter);
+        $('.moves').text(moveCounter);
         if ($(this).hasClass('show')) {
             hideCard(this);
         } else {
