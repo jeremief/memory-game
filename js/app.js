@@ -12,8 +12,8 @@ jQuery(document).ready(function(){
  * Create a list that holds all of your cards
  */
 
- let icons_list_first_half = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
- let unshuffled_icons_list = icons_list_first_half.concat(icons_list_first_half);
+ let primary_icon_list = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+ let unshuffled_icons_list = primary_icon_list.concat(primary_icon_list);
  let moveCounter = 0;
 
 
@@ -60,6 +60,26 @@ function showCard(card) {
         $(card).addClass('open show')
 }
 
+
+function restartGame() {
+    moveCounter = 0;
+    $('.moves').text(moveCounter);
+    
+    $('.deck i').each(function(){
+        for (let list_index = 0; list_index <= primary_icon_list.length; list_index++) {
+            $(this).removeClass(String(primary_icon_list[list_index]));
+        }
+    });
+    icons_list = shuffle(icons_list);
+    populateGrid(icons_list);
+
+
+    $('.deck li').each(function(){
+        hideCard(this);
+    });
+
+}
+
 populateGrid(icons_list);
 
 // $('.restart').on('click', '.fa-repeat', function(){
@@ -69,7 +89,6 @@ populateGrid(icons_list);
 
 $('.deck').on('click', '.card', function(){
         moveCounter++;
-        // $('.moves').val(moveCounter);
         $('.moves').text(moveCounter);
         if ($(this).hasClass('show')) {
             hideCard(this);
@@ -77,6 +96,8 @@ $('.deck').on('click', '.card', function(){
             showCard(this);
         }
 });
+
+$('.restart').click(restartGame);
 
 /*
  * set up the event listener for a card. If a card is clicked:
