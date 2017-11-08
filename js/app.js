@@ -15,6 +15,12 @@ jQuery(document).ready(function(){
  let primary_icon_list = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
  let unshuffled_icons_list = primary_icon_list.concat(primary_icon_list);
  let moveCounter = 0;
+ let timer = 0;
+ let timer_seconds_1 = 0;
+ let timer_seconds_2 = 0;
+ let timer_minutes = 0;
+ let timer_display = "0:00";
+ let timer_started = false;
 
 
 /*
@@ -51,6 +57,34 @@ function populateGrid (list_of_icons) {
     });
 }
 
+function incrementTimer(){
+    timer++;
+    
+    timer_seconds_1++;
+
+    if (timer_seconds_1 === 10) {
+        timer_seconds_1 = 0;
+        timer_seconds_2++;
+    }
+
+    if (timer_seconds_2 === 6) {
+        timer_seconds_2 = 0;
+        timer_minutes++;
+    }
+
+    if (timer_minutes === 10) {
+        timer_seconds_1 = 0;
+        timer_seconds_2 = 0;
+    }
+
+    let timer_display =  String(timer_minutes + ":" + timer_seconds_2 + timer_seconds_1)
+    $('.timer_display').text(timer_display);
+
+}
+
+
+
+
 // function hideCard() {
 function hideCard(card) {
         $(card).removeClass('open show');
@@ -63,6 +97,15 @@ function showCard(card) {
 
 function restartGame() {
     moveCounter = 0;
+    timer = 0;
+    timer_seconds_1 = 0;
+    timer_seconds_2 = 0;
+    timer_minutes = 0;
+
+    $('.timer_display').text(String(timer_minutes + ":" + timer_seconds_2 + timer_seconds_1));
+
+
+    
     $('.moves').text(moveCounter);
     
     $('.deck i').each(function(){
@@ -82,12 +125,14 @@ function restartGame() {
 
 populateGrid(icons_list);
 
-// $('.restart').on('click', '.fa-repeat', function(){
-//     populateGrid(icons_list);
-// });
 
 
 $('.deck').on('click', '.card', function(){
+
+        if (timer_started == false) {
+            timer_started = true;
+            window.setInterval(incrementTimer, 1000)
+        }
         moveCounter++;
         $('.moves').text(moveCounter);
         if ($(this).hasClass('show')) {
@@ -95,6 +140,7 @@ $('.deck').on('click', '.card', function(){
         } else {
             showCard(this);
         }
+        console.log(myTimer);
 });
 
 $('.restart').click(restartGame);
