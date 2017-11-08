@@ -21,6 +21,7 @@ jQuery(document).ready(function(){
  let timer_minutes = 0;
  let timer_display = "0:00";
  let timer_started = false;
+ let myInterval = "";
 
 
 /*
@@ -102,6 +103,9 @@ function restartGame() {
     timer_seconds_2 = 0;
     timer_minutes = 0;
 
+    clearInterval(myInterval);
+    timer_started = false;
+
     $('.timer_display').text(String(timer_minutes + ":" + timer_seconds_2 + timer_seconds_1));
 
 
@@ -131,7 +135,8 @@ $('.deck').on('click', '.card', function(){
 
         if (timer_started == false) {
             timer_started = true;
-            window.setInterval(incrementTimer, 1000)
+            // window.setInterval(incrementTimer, 1000)
+            myInterval = window.setInterval(incrementTimer, 1000)
         }
         moveCounter++;
         $('.moves').text(moveCounter);
