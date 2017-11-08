@@ -15,13 +15,15 @@ jQuery(document).ready(function(){
  let primary_icon_list = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
  let unshuffled_icons_list = primary_icon_list.concat(primary_icon_list);
  let moveCounter = 0;
+ let two_star_moves = 10;
+ let one_star_moves = 20;
  let timer = 0;
  let timer_seconds_1 = 0;
  let timer_seconds_2 = 0;
  let timer_minutes = 0;
  let timer_display = "0:00";
  let timer_started = false;
- let myInterval = "";
+ let myTimerVariable = "";
 
 
 /*
@@ -86,7 +88,6 @@ function incrementTimer(){
 
 
 
-// function hideCard() {
 function hideCard(card) {
         $(card).removeClass('open show');
 }
@@ -96,6 +97,23 @@ function showCard(card) {
 }
 
 
+function amendStars(){
+    if (moveCounter >= two_star_moves){
+        $('.stars i').last().removeClass('fa-star');
+        $('.stars i').last().addClass('fa-star-o');
+    }; 
+
+    if (moveCounter >= one_star_moves) {
+        $('.stars i').eq(-2).removeClass('fa-star');
+        $('.stars i').eq(-2).addClass('fa-star-o');     
+    };
+}
+
+function resetStars() {
+    $('.stars i').removeClass('fa-star-o');
+    $('.stars i').addClass('fa-star');
+}
+
 function restartGame() {
     moveCounter = 0;
     timer = 0;
@@ -103,7 +121,8 @@ function restartGame() {
     timer_seconds_2 = 0;
     timer_minutes = 0;
 
-    clearInterval(myInterval);
+    clearInterval(myTimerVariable);
+    resetStars();
     timer_started = false;
 
     $('.timer_display').text(String(timer_minutes + ":" + timer_seconds_2 + timer_seconds_1));
@@ -135,17 +154,16 @@ $('.deck').on('click', '.card', function(){
 
         if (timer_started == false) {
             timer_started = true;
-            // window.setInterval(incrementTimer, 1000)
-            myInterval = window.setInterval(incrementTimer, 1000)
+            myTimerVariable = window.setInterval(incrementTimer, 1000)
         }
         moveCounter++;
+        amendStars();
         $('.moves').text(moveCounter);
         if ($(this).hasClass('show')) {
             hideCard(this);
         } else {
             showCard(this);
         }
-        console.log(myTimer);
 });
 
 $('.restart').click(restartGame);
