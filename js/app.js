@@ -25,6 +25,7 @@ jQuery(document).ready(function(){
  let timer_started = false;
  let myTimerVariable = "";
  let openList = [];
+ let viewingTime = 2000;
 
 
 /*
@@ -118,10 +119,9 @@ function manageOpenList(current_card) {
         }}
 
     if (openList.length === 2) {
-        console.log($(openList[0]).children('i'));
-        console.log($(openList[1]).children('i'));
         if ($(openList[0]).children('i').attr('class') == $(openList[1]).children('i').attr('class')) {
-            console.log('Match!');
+            $(openList[0]).addClass('match');
+            $(openList[1]).addClass('match');
             openList = [];
         } else {
             setTimeout(function(){
@@ -130,7 +130,7 @@ function manageOpenList(current_card) {
                 });
 
                 openList = [];
-            }, 2000);
+            }, viewingTime);
         }
 
     }
@@ -155,8 +155,6 @@ function restartGame() {
     openList = [];
 
     $('.timer_display').text(String(timer_minutes + ":" + timer_seconds_2 + timer_seconds_1));
-
-
     
     $('.moves').text(moveCounter);
     
