@@ -24,6 +24,7 @@ jQuery(document).ready(function(){
  let timer_display = "0:00";
  let timer_started = false;
  let myTimerVariable = "";
+ let openList = [];
 
 
 /*
@@ -109,6 +110,33 @@ function amendStars(){
     };
 }
 
+function manageOpenList(current_card) {
+
+    for (let list_index = 0; list_index <= primary_icon_list.length; list_index++) {
+            if ($(current_card).children('i').hasClass(String(primary_icon_list[list_index]))){
+                openList.push(current_card);
+        }}
+
+    if (openList.length === 2) {
+        console.log($(openList[0]).children('i'));
+        console.log($(openList[1]).children('i'));
+        if ($(openList[0]).children('i').attr('class') == $(openList[1]).children('i').attr('class')) {
+            console.log('Match!');
+            openList = [];
+        } else {
+            setTimeout(function(){
+                $(openList).each(function(){
+                    hideCard(this);
+                });
+
+                openList = [];
+            }, 2000);
+        }
+
+    }
+}
+
+
 function resetStars() {
     $('.stars i').removeClass('fa-star-o');
     $('.stars i').addClass('fa-star');
@@ -124,6 +152,7 @@ function restartGame() {
     clearInterval(myTimerVariable);
     resetStars();
     timer_started = false;
+    openList = [];
 
     $('.timer_display').text(String(timer_minutes + ":" + timer_seconds_2 + timer_seconds_1));
 
@@ -164,6 +193,7 @@ $('.deck').on('click', '.card', function(){
         } else {
             showCard(this);
         }
+        manageOpenList(this);
 });
 
 $('.restart').click(restartGame);
