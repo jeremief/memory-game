@@ -15,6 +15,7 @@ jQuery(document).ready(function(){
  let primary_icon_list = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
  let unshuffled_icons_list = primary_icon_list.concat(primary_icon_list);
  let moveCounter = 0;
+ let matchCounter = 0;
  let two_star_moves = 10;
  let one_star_moves = 20;
  let timer = 0;
@@ -120,10 +121,10 @@ function manageOpenList(current_card) {
         }}
 
     if (openList.length === 2) {
-        console.log('manage ' + click_suspended);
         if ($(openList[0]).children('i').attr('class') == $(openList[1]).children('i').attr('class')) {
             $(openList[0]).addClass('match');
             $(openList[1]).addClass('match');
+            matchCounter = matchCounter + 2;
             openList = [];
         } else {
             click_suspended = true;
@@ -139,6 +140,13 @@ function manageOpenList(current_card) {
     }
 }
 
+
+function checkWin(){
+    if (matchCounter === unshuffled_icons_list.length) {
+        clearInterval(myTimerVariable);
+        console.log("Win!");
+    }
+}
 
 function resetStars() {
     $('.stars i').removeClass('fa-star-o');
@@ -181,7 +189,6 @@ populateGrid(icons_list);
 
 
 $('.deck').on('click', '.card', function(){
-    console.log('click ' + click_suspended);
     if (click_suspended == false) {
 
         if (timer_started == false) {
@@ -197,6 +204,7 @@ $('.deck').on('click', '.card', function(){
             showCard(this);
         }
         manageOpenList(this);
+        checkWin();
     }
 });
 
