@@ -112,3 +112,30 @@ h1 {
     float: right;
     margin-left: 90px;
 }
+
+.modal {
+    display: none;
+    position: fixed;  
+    top: 0;
+    width: 100%; 
+    background-color: rgba(0,0,0,0.4); 
+}
+.close {
+    color: black;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.modal-content {
+    background-color: white;
+    text-align: center;
+    margin: 15% auto; 
+    padding: 20px;
+    width: 70%; 
+}
+
+
+.close:hover {
+    cursor: pointer;
+}

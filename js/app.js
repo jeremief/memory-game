@@ -144,9 +144,10 @@ function manageOpenList(current_card) {
 function checkWin(){
     if (matchCounter === unshuffled_icons_list.length) {
         clearInterval(myTimerVariable);
-        console.log("Win!");
+        $('.modal').show();
     }
 }
+
 
 function resetStars() {
     $('.stars i').removeClass('fa-star-o');
@@ -182,6 +183,8 @@ function restartGame() {
         hideCard(this);
     });
 
+    matchCounter = 0;
+
 }
 
 populateGrid(icons_list);
@@ -210,6 +213,7 @@ $('.deck').on('click', '.card', function(){
 
 $('.restart').click(restartGame);
 
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -222,5 +226,9 @@ $('.restart').click(restartGame);
  */
 
 
+// When the user clicks on <span> (x), close the modal
+$('.modal-content').on('click', '.close', function() {
+    $('.modal').hide();
+});
 
 });
