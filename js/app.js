@@ -25,7 +25,8 @@ jQuery(document).ready(function(){
  let timer_started = false;
  let myTimerVariable = "";
  let openList = [];
- let viewingTime = 2000;
+ let cardViewingTime = 2000;
+ let click_suspended = false;
 
 
 /*
@@ -119,20 +120,22 @@ function manageOpenList(current_card) {
         }}
 
     if (openList.length === 2) {
+        console.log('manage ' + click_suspended);
         if ($(openList[0]).children('i').attr('class') == $(openList[1]).children('i').attr('class')) {
             $(openList[0]).addClass('match');
             $(openList[1]).addClass('match');
             openList = [];
         } else {
+            click_suspended = true;
             setTimeout(function(){
                 $(openList).each(function(){
                     hideCard(this);
                 });
+            click_suspended = false;
 
                 openList = [];
-            }, viewingTime);
+            }, cardViewingTime);
         }
-
     }
 }
 
@@ -178,6 +181,8 @@ populateGrid(icons_list);
 
 
 $('.deck').on('click', '.card', function(){
+    console.log('click ' + click_suspended);
+    if (click_suspended == false) {
 
         if (timer_started == false) {
             timer_started = true;
@@ -192,6 +197,7 @@ $('.deck').on('click', '.card', function(){
             showCard(this);
         }
         manageOpenList(this);
+    }
 });
 
 $('.restart').click(restartGame);
