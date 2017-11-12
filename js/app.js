@@ -92,7 +92,7 @@ function incrementTimer(){
 
 
 function hideCard(card) {
-        $(card).removeClass('open show');
+        $(card).removeClass('open show match');
 }
 
 function showCard(card) {
