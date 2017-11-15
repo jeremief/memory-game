@@ -141,6 +141,8 @@ jQuery(document).ready(function(){
         timer_seconds_2 = 0;
         timer_minutes = 0;
 
+        $('.modal').hide();
+
         clearInterval(myTimerVariable);
         resetStars();
         timer_started = false;
@@ -194,8 +196,11 @@ jQuery(document).ready(function(){
         }
     });
 
-    // Set event listner to restart the game
+    // Set event listner to restart the game from main screen
     $('.restart').click(restartGame);
+
+    // Set event listner to restart the game from modal
+    $('#retry-button').click(restartGame);
 
     // Set event listner to close the victory modal
     $('.modal-content').on('click', '.close', function() {
