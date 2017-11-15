@@ -120,7 +120,7 @@ jQuery(document).ready(function(){
     function checkWin(){
         if (matchCounter === unshuffled_icons_list.length) {
             clearInterval(myTimerVariable);
-            let timeModal = "It took you " + String(timer_display) + " minutes";
+            let timeModal = "It took you " + String($('.timer_display').text()) + " minutes";
             let ratingModal = $('.stars');
             $('#time').text(String(timeModal));
             $('#rating').append(ratingModal);
