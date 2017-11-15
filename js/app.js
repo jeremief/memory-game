@@ -1,13 +1,13 @@
 
 jQuery(document).ready(function(){
 
-    // Setting up all variables
+    // Setting up all variables used in the game
     let primary_icon_list = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
     let unshuffled_icons_list = primary_icon_list.concat(primary_icon_list);
     let moveCounter = 0;
     let matchCounter = 0;
-    let two_star_moves = 10;
-    let one_star_moves = 20;
+    let two_star_moves = 30;
+    let one_star_moves = 40;
     let timer = 0;
     let timer_seconds_1 = 0;
     let timer_seconds_2 = 0;
@@ -33,8 +33,6 @@ jQuery(document).ready(function(){
 
         return array;
     }
-
-    let icons_list = shuffle(unshuffled_icons_list);
 
     function populateGrid (list_of_icons) {
         let class_index = 0;
@@ -122,6 +120,10 @@ jQuery(document).ready(function(){
     function checkWin(){
         if (matchCounter === unshuffled_icons_list.length) {
             clearInterval(myTimerVariable);
+            let timeModal = "It took you " + String(timer_display) + " minutes";
+            let ratingModal = $('.stars');
+            $('#time').text(String(timeModal));
+            $('#rating').append(ratingModal);
             $('.modal').show();
         }
     }
@@ -164,10 +166,14 @@ jQuery(document).ready(function(){
         matchCounter = 0;
     }
 
+
+    // Shuffle icons
+    let icons_list = shuffle(unshuffled_icons_list);
+
+    // Add icons to the grid
     populateGrid(icons_list);
 
-
-
+    // Set event listner to handle the game logic as the player goes through the game
     $('.deck').on('click', '.card', function(){
         if (click_suspended == false) {
 
@@ -188,9 +194,10 @@ jQuery(document).ready(function(){
         }
     });
 
+    // Set event listner to restart the game
     $('.restart').click(restartGame);
 
-
+    // Set event listner to close the victory modal
     $('.modal-content').on('click', '.close', function() {
         $('.modal').hide();
     });

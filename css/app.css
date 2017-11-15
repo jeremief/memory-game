@@ -85,20 +85,20 @@ h1 {
  * Styles for the Score Panel
  */
 
-.score-panel {
+.score-panel, .modal-rating {
     text-align: left;
     width: 345px;
     margin-bottom: 10px;
 }
 
-.score-panel .stars {
+.score-panel .stars, .modal-rating .stars {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.score-panel .stars li, .modal-rating .stars li {
     list-style: none;
     display: inline-block;
 }
@@ -136,6 +136,10 @@ h1 {
     width: 70%; 
 }
 
+/*.modal-rating .stars {*/
+.modal-rating {
+    display: inline;
+}
 
 .close:hover {
     cursor: pointer;
