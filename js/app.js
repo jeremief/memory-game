@@ -91,6 +91,7 @@ jQuery(document).ready(function(){
     }
 
     function manageOpenList(current_card){
+        console.log(current_card);
         for (let list_index = 0; list_index <= primary_icon_list.length; list_index++) {
                 if ($(current_card).children('i').hasClass(String(primary_icon_list[list_index]))){
                     openList.push(current_card);
@@ -177,7 +178,7 @@ jQuery(document).ready(function(){
 
     // Set event listner to handle the game logic as the player goes through the game
     $('.deck').on('click', '.card', function(){
-        if (click_suspended == false) {
+        if (click_suspended == false && $(this).hasClass('show') == false) {
 
             if (timer_started == false) {
                 timer_started = true;
