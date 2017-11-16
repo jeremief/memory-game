@@ -33,6 +33,7 @@ jQuery(document).ready(function(){
         return array;
     }
 
+    // Takes in the list of icons and uses it to populate the game's grid
     function populateGrid (listOfIcons) {
         let classIndex = 0;
         $('.deck i').each(function(){
@@ -42,6 +43,7 @@ jQuery(document).ready(function(){
         });
     }
 
+    // Increments the timer by one second and populates the page with the new value
     function incrementTimer(){
         timer++;
         
@@ -77,6 +79,7 @@ jQuery(document).ready(function(){
     }
 
 
+    // Uses the moveCounter to reduce the number of stars
     function amendStars(){
         if (moveCounter >= twoStarMoves){
             $('.stars i').last().removeClass('fa-star');
@@ -89,6 +92,8 @@ jQuery(document).ready(function(){
         };
     }
 
+    // Takes in the card clicked by the player and adds it to the openList. Then, it adds a 'match' class
+    // to the cards if they do match or hides them after some time if they don't
     function manageOpenList(currentCard){
         console.log(currentCard);
         for (let listIndex = 0; listIndex <= primaryIconList.length; listIndex++) {
@@ -116,7 +121,7 @@ jQuery(document).ready(function(){
         }
     }
 
-
+    // Checks if the game is won after each move and creates the victory modal if it is
     function checkWin(){
         if (matchCounter === unshuffledIconList.length) {
             clearInterval(myTimerVariable);
@@ -129,11 +134,13 @@ jQuery(document).ready(function(){
     }
 
 
+    // Resets the rating to three stars
     function resetStars() {
         $('.stars i').removeClass('fa-star-o');
         $('.stars i').addClass('fa-star');
     }
 
+    // Restarts the game by resetting all game variables
     function restartGame() {
         moveCounter = 0;
         timer = 0;
