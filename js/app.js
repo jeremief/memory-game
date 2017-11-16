@@ -17,7 +17,7 @@ jQuery(document).ready(function(){
     let myTimerVariable = "";
     let openList = [];
     let cardViewingTime = 2000;
-    let click_suspended = false;
+    let clickSuspended = false;
 
     // Shuffle function from http://stackoverflow.com/a/2450976
     function shuffle(array) {
@@ -34,12 +34,12 @@ jQuery(document).ready(function(){
         return array;
     }
 
-    function populateGrid (list_of_icons) {
-        let class_index = 0;
+    function populateGrid (listOfIcons) {
+        let classIndex = 0;
         $('.deck i').each(function(){
-            let added_class = list_of_icons[class_index];
-            $(this).addClass(added_class);
-            class_index++;
+            let addedClass = listOfIcons[classIndex];
+            $(this).addClass(addedClass);
+            classIndex++;
         });
     }
 
@@ -90,11 +90,11 @@ jQuery(document).ready(function(){
         };
     }
 
-    function manageOpenList(current_card){
-        console.log(current_card);
-        for (let list_index = 0; list_index <= primaryIconList.length; list_index++) {
-                if ($(current_card).children('i').hasClass(String(primaryIconList[list_index]))){
-                    openList.push(current_card);
+    function manageOpenList(currentCard){
+        console.log(currentCard);
+        for (let listIndex = 0; listIndex <= primaryIconList.length; listIndex++) {
+                if ($(currentCard).children('i').hasClass(String(primaryIconList[listIndex]))){
+                    openList.push(currentCard);
             }}
 
         if (openList.length === 2) {
@@ -104,12 +104,12 @@ jQuery(document).ready(function(){
                 matchCounter = matchCounter + 2;
                 openList = [];
             } else {
-                click_suspended = true;
+                clickSuspended = true;
                 setTimeout(function(){
                     $(openList).each(function(){
                         hideCard(this);
                     });
-                click_suspended = false;
+                clickSuspended = false;
 
                     openList = [];
                 }, cardViewingTime);
@@ -154,13 +154,14 @@ jQuery(document).ready(function(){
         $('.moves').text(moveCounter);
         
         $('.deck i').each(function(){
-            for (let list_index = 0; list_index <= primaryIconList.length; list_index++) {
-                $(this).removeClass(String(primaryIconList[list_index]));
+            for (let listIndex = 0; listIndex <= primaryIconList.length; listIndex++) {
+                $(this).removeClass(String(primaryIconList[listIndex]));
             }
         });
-        icons_list = shuffle(icons_list);
-        populateGrid(icons_list);
+        iconsList = shuffle(iconsList);
+        populateGrid(iconsList);
 
+        $('#rating').empty();
 
         $('.deck li').each(function(){
             hideCard(this);
@@ -171,14 +172,14 @@ jQuery(document).ready(function(){
 
 
     // Shuffle icons
-    let icons_list = shuffle(unshuffledIconList);
+    let iconsList = shuffle(unshuffledIconList);
 
     // Add icons to the grid
-    populateGrid(icons_list);
+    populateGrid(iconsList);
 
     // Set event listner to handle the game logic as the player goes through the game
     $('.deck').on('click', '.card', function(){
-        if (click_suspended == false && $(this).hasClass('show') == false) {
+        if (clickSuspended == false && $(this).hasClass('show') == false) {
 
             if (timer_started == false) {
                 timer_started = true;
