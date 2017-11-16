@@ -9,11 +9,10 @@ jQuery(document).ready(function(){
     let twoStarMoves = 30;
     let oneStarMoves = 40;
     let timer = 0;
-    let timer_seconds_1 = 0;
-    let timer_seconds_2 = 0;
-    let timer_minutes = 0;
-    let timer_display = "0:00";
-    let timer_started = false;
+    let timerSeconds1 = 0;
+    let timerSeconds2 = 0;
+    let timerMinutes = 0;
+    let timerStarted = false;
     let myTimerVariable = "";
     let openList = [];
     let cardViewingTime = 2000;
@@ -46,25 +45,25 @@ jQuery(document).ready(function(){
     function incrementTimer(){
         timer++;
         
-        timer_seconds_1++;
+        timerSeconds1++;
 
-        if (timer_seconds_1 === 10) {
-            timer_seconds_1 = 0;
-            timer_seconds_2++;
+        if (timerSeconds1 === 10) {
+            timerSeconds1 = 0;
+            timerSeconds2++;
         }
 
-        if (timer_seconds_2 === 6) {
-            timer_seconds_2 = 0;
-            timer_minutes++;
+        if (timerSeconds2 === 6) {
+            timerSeconds2 = 0;
+            timerMinutes++;
         }
 
-        if (timer_minutes === 10) {
-            timer_seconds_1 = 0;
-            timer_seconds_2 = 0;
+        if (timerMinutes === 10) {
+            timerSeconds1 = 0;
+            timerSeconds2 = 0;
         }
 
-        let timer_display =  String(timer_minutes + ":" + timer_seconds_2 + timer_seconds_1)
-        $('.timer_display').text(timer_display);
+        let timer_display_content =  String(timerMinutes + ":" + timerSeconds2 + timerSeconds1)
+        $('.timer_display').text(timer_display_content);
     }
 
 
@@ -138,18 +137,18 @@ jQuery(document).ready(function(){
     function restartGame() {
         moveCounter = 0;
         timer = 0;
-        timer_seconds_1 = 0;
-        timer_seconds_2 = 0;
-        timer_minutes = 0;
+        timerSeconds1 = 0;
+        timerSeconds2 = 0;
+        timerMinutes = 0;
 
         $('.modal').hide();
 
         clearInterval(myTimerVariable);
         resetStars();
-        timer_started = false;
+        timerStarted = false;
         openList = [];
 
-        $('.timer_display').text(String(timer_minutes + ":" + timer_seconds_2 + timer_seconds_1));
+        $('.timer_display').text(String(timerMinutes + ":" + timerSeconds2 + timerSeconds1));
         
         $('.moves').text(moveCounter);
         
@@ -181,8 +180,8 @@ jQuery(document).ready(function(){
     $('.deck').on('click', '.card', function(){
         if (clickSuspended == false && $(this).hasClass('show') == false) {
 
-            if (timer_started == false) {
-                timer_started = true;
+            if (timerStarted == false) {
+                timerStarted = true;
                 myTimerVariable = window.setInterval(incrementTimer, 1000)
             }
             moveCounter++;
