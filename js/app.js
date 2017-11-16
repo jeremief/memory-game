@@ -2,12 +2,12 @@
 jQuery(document).ready(function(){
 
     // Setting up all variables used in the game
-    let primary_icon_list = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
-    let unshuffled_icons_list = primary_icon_list.concat(primary_icon_list);
+    let primaryIconList = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+    let unshuffledIconList = primaryIconList.concat(primaryIconList);
     let moveCounter = 0;
     let matchCounter = 0;
-    let two_star_moves = 30;
-    let one_star_moves = 40;
+    let twoStarMoves = 30;
+    let oneStarMoves = 40;
     let timer = 0;
     let timer_seconds_1 = 0;
     let timer_seconds_2 = 0;
@@ -79,12 +79,12 @@ jQuery(document).ready(function(){
 
 
     function amendStars(){
-        if (moveCounter >= two_star_moves){
+        if (moveCounter >= twoStarMoves){
             $('.stars i').last().removeClass('fa-star');
             $('.stars i').last().addClass('fa-star-o');
         }; 
 
-        if (moveCounter >= one_star_moves) {
+        if (moveCounter >= oneStarMoves) {
             $('.stars i').eq(-2).removeClass('fa-star');
             $('.stars i').eq(-2).addClass('fa-star-o');     
         };
@@ -92,8 +92,8 @@ jQuery(document).ready(function(){
 
     function manageOpenList(current_card){
         console.log(current_card);
-        for (let list_index = 0; list_index <= primary_icon_list.length; list_index++) {
-                if ($(current_card).children('i').hasClass(String(primary_icon_list[list_index]))){
+        for (let list_index = 0; list_index <= primaryIconList.length; list_index++) {
+                if ($(current_card).children('i').hasClass(String(primaryIconList[list_index]))){
                     openList.push(current_card);
             }}
 
@@ -119,7 +119,7 @@ jQuery(document).ready(function(){
 
 
     function checkWin(){
-        if (matchCounter === unshuffled_icons_list.length) {
+        if (matchCounter === unshuffledIconList.length) {
             clearInterval(myTimerVariable);
             let timeModal = "It took you " + String($('.timer_display').text()) + " minutes";
             let ratingModal = $('.stars').clone();
@@ -154,8 +154,8 @@ jQuery(document).ready(function(){
         $('.moves').text(moveCounter);
         
         $('.deck i').each(function(){
-            for (let list_index = 0; list_index <= primary_icon_list.length; list_index++) {
-                $(this).removeClass(String(primary_icon_list[list_index]));
+            for (let list_index = 0; list_index <= primaryIconList.length; list_index++) {
+                $(this).removeClass(String(primaryIconList[list_index]));
             }
         });
         icons_list = shuffle(icons_list);
@@ -171,7 +171,7 @@ jQuery(document).ready(function(){
 
 
     // Shuffle icons
-    let icons_list = shuffle(unshuffled_icons_list);
+    let icons_list = shuffle(unshuffledIconList);
 
     // Add icons to the grid
     populateGrid(icons_list);
